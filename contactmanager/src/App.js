@@ -7,8 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Contact />
+        <Header branding="Contact Manager" />
+        <Contact naame="Abby" email="abby@example.com" phone="9876543210"/>
+        <Contact naame="Bobby" email="bobby@example.com" phone="9786543120"/>
       </div>
     );
   }

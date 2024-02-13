@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 class Contact extends Component {
-  render() {
+  render(props) {
+    const { email, phone } = this.props; // destructuring
     return (
       <div>
-        <h4>Abhi</h4>
+        <h4>{this.props.name}</h4> {/* direct use with this.props */}
         <ul>
-          <li>Email: abhi@example.com</li>
-          <li>Phone: 9876543210</li>
+          <li>Email: {email}</li>
+          <li>Phone: {phone}</li>
         </ul>
       </div>
     )

@@ -1,10 +1,10 @@
 // No State needed. Just want to show static Markup through JSX
 import React from 'react'
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div>
-      <h1>Contact Manager</h1>
+      <h1>{props.branding}</h1> {/* Direct use with this.props */}
     </div>
   )
 }
