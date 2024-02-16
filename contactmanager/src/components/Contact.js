@@ -11,6 +11,31 @@ class Contact extends Component {
   //   phone: PropTypes.string.isRequired
   // };
 
+  // state = {}
+
+  // constructor() {
+  //   super();
+  //   this.state = {}
+
+  //   this.onShowClick = this.onShowClick.bind(this);
+  // }
+
+  // onShowClick() {
+  //   console.log(this.state); // this does not work here as intended because this is our own custom function and not Component's own core method. So we need to bind our onClick function.
+  //   // Another way of doing this is to write a constructor and bind this function in there.
+
+  // // ***** The best way? Use arrow function. It will make this available for us. :)
+  // }
+
+  // state = {}
+  // onShowClick = (name, e) => {
+  //   // console.log(this.state);
+  //   // console.log(e.target);
+  //   console.log(name);
+  // }
+
+  onShowClick = e => {};
+
   render(props) {
     // const { email, phone } = this.props; // destructuring
     const { contact } = this.props;
@@ -22,7 +47,10 @@ class Contact extends Component {
           <li className="list-group-item">Email: {email}</li>
           <li className="list-group-item">Phone: {phone}</li>
         </ul> */}
-        <h4>{contact.name}</h4>
+        {/* <h4>{contact.name} <i onClick={this.onShowClick} className="fas fa-sort-down"></i></h4> */} {/* This does not work because we need to bind this to the custom function to Component */}
+        {/* <h4>{contact.name} <i onClick={this.onShowClick.bind(this)} className="fas fa-sort-down"></i></h4> */}
+        {/* <h4>{contact.name} <i onClick={this.onShowClick} className="fas fa-sort-down"></i></h4> */}
+        <h4>{contact.name} <i onClick={this.onShowClick.bind(this, contact.name)} className="fas fa-sort-down"></i></h4> {/* .bind is used to pass parameters to the function. Be it arrow or not - 'this' is compulsory. */}
         <ul className='list-group'>
           <li className="list-group-item">Email: {contact.email}</li>
           <li className="list-group-item">Phone: {contact.phone}</li>
