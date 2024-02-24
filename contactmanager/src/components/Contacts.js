@@ -24,12 +24,15 @@ class Contacts extends Component {
     const { contacts } = this.state;
 
     return (
-      <div>
+      // <div> // We don't need div here.
+      // react6 has a component - FRAGMENT - pseudo element that is not added to the DOM.
+      <React.Fragment>
         { contacts.map(contact => (
           // <Contact key={contact.id} name={contact.name} email={contact.email} phone={contact.phone} />
           <Contact key={contact.id} contact={contact} />
         ))}
-      </div>
+      </React.Fragment>
+      // </div>
     )
   }
 }
