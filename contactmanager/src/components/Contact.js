@@ -34,11 +34,19 @@ class Contact extends Component {
   //   console.log(name);
   // }
 
-  onShowClick = e => {};
+  state = { showContactInfo : false }
+  // onShowClick = e => {};
+  onShowClick = e => {
+    // this.state = { showContactInfo : true } // we cannot do this. We need to use setState().
+    this.setState({ showContactInfo : !this.state.showContactInfo });
+    // If we have component based stat and we want to change it, use setstate().
+    // We can also just use this function inline.
+  }
 
   render(props) {
     // const { email, phone } = this.props; // destructuring
     const { contact } = this.props;
+    const { showContactInfo } = this.state;
     // const { name, email, phone } = this.props.contact; // Can do like this too and not use contact.name
     return (
       <div className="card card-body mb-3">
@@ -51,10 +59,12 @@ class Contact extends Component {
         {/* <h4>{contact.name} <i onClick={this.onShowClick.bind(this)} className="fas fa-sort-down"></i></h4> */}
         {/* <h4>{contact.name} <i onClick={this.onShowClick} className="fas fa-sort-down"></i></h4> */}
         <h4>{contact.name} <i onClick={this.onShowClick.bind(this, contact.name)} className="fas fa-sort-down"></i></h4> {/* .bind is used to pass parameters to the function. Be it arrow or not - 'this' is compulsory. */}
-        <ul className='list-group'>
-          <li className="list-group-item">Email: {contact.email}</li>
-          <li className="list-group-item">Phone: {contact.phone}</li>
-        </ul>
+        { showContactInfo ? (
+          <ul className='list-group'>
+            <li className="list-group-item">Email: {contact.email}</li>
+            <li className="list-group-item">Phone: {contact.phone}</li>
+          </ul>
+        ) : null }
       </div>
     )
   }
