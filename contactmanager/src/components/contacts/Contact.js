@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Consumer } from '../context';
+import { Consumer } from '../../context';
 
 class Contact extends Component {
   state = {
