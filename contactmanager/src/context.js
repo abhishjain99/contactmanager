@@ -6,6 +6,18 @@
 import React, { Component } from 'react';
 const Context = React.createContext();
 
+const reducer = (state, action) => {
+  // action is what action I want to take when I call something. Example delete. And we need to get what "type" we need to use.
+  switch(action.type) { // type is just Capitalized string
+    case "DELETE_CONTACT":
+      return {
+        ...state, contacts: state.contacts.filter(contact => contact.id != action.payload) // payload is the data sent along with action. For example, id or conatact or anything.
+      }
+    default:
+      return state;
+  }
+}
+
 // It's a store or provider.
 // Provider : It will have all the states and actions/methods/functions that consumer needs to use globally throughout the application.
 export class Provider extends Component { // This is our global state
@@ -14,7 +26,10 @@ export class Provider extends Component { // This is our global state
       { id: 1, name: "Abby", email:"abby@example.com", phone: "9876543210" },
       { id: 2, name: "Boby", email:"boby@example.com", phone: "1234567890" },
       { id: 3, name: "Coby", email:"coby@example.com", phone: "9865324106" }
-    ]
+    ],
+    dispatch: action => { // this is a way to call an action. One can use dispatch anywhere now.
+      this.setState(state => reducer(state, action));
+    }
   }
 
 
