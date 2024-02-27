@@ -11,7 +11,13 @@ const reducer = (state, action) => {
   switch(action.type) { // type is just Capitalized string
     case "DELETE_CONTACT":
       return {
-        ...state, contacts: state.contacts.filter(contact => contact.id != action.payload) // payload is the data sent along with action. For example, id or conatact or anything.
+        ...state,
+        contacts: state.contacts.filter(contact => contact.id != action.payload) // payload is the data sent along with action. For example, id or conatact or anything.
+      }
+    case "ADD_CONTACT":
+      return {
+        ...state,
+        contacts: [action.payload, ...state.contacts]
       }
     default:
       return state;

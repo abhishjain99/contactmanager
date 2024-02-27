@@ -1,55 +1,59 @@
-// Uncontrolled component
-// Where each input is not connected to the state
-
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { v1 as uuid } from 'uuid';
+import { Consumer } from "../../context";
 
 class AddContact extends Component {
-  constructor(props) {
-    super(props);
-    this.nameInput = React.createRef();
-    this.emailInput = React.createRef();
-    this.phoneInput = React.createRef();
-  }
+  state = {
+    name: '',
+    email: '',
+    phone: ''
+  };
 
-  onSubmit = e => {
+  onChange = e => this.setState({
+    [e.target.name]: e.target.value
+  });
+
+  onSubmit = (dispatch, e) => {
     e.preventDefault();
-    // console.log(this.state); // we don't havre state, but values are coming from props
-    const contact = {
-      name: this.nameInput.current.value,
-      email: this.emailInput.current.value,
-      photo: this.photoInput.current.values
-    }
-  }
+    
+    const { name, email, phone } = this.state;
+    const newContact = { id: uuid(), name, email, phone }; // key and value are same, so using ES6 syntax
+    // npm install uuid
+    dispatch({ type: "ADD_CONTACT", payload: newContact });
 
-  static defaultProps = {
-    name: "Dory",
-    email: "dory@example.com",
-    phone: "9821637450"
-  } // when working with redux, we get state from redux store and map it to props in the component
+    this.setState( { name: '', email: '', phone: '' }) // clear state after subimitting
+  }
 
   render() {
-    const { name, email, phone } = this.props;
+    const { name, email, phone } = this.state;
     return (
-      <div className="card mb-3">
-        <div className="card-header">Add Contact</div>
-        <div className="card-body">
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" className="form-control control-lg" placeholder="Enter name..." name="name" defaultValue={name} ref={this.nameInput} />
+      <Consumer>
+        {value => {
+          const { dispatch } = value;
+          return (
+            <div className="card mb-3">
+              <div className="card-header">Add Contact</div>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                  <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input type="text" className="form-control control-lg" placeholder="Enter name..." name="name" value={name} onChange={this.onChange} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" className="form-control control-lg" placeholder="Enter email..." name="email" value={email} onChange={this.onChange} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input type="text" className="form-control control-lg" placeholder="Enter phone..." name="phone" value={phone} onChange={this.onChange} />
+                  </div>
+                  <input type="submit" value="Add Contact" className="btn btn-block btn-success mt-3" />
+                </form>
+              </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" className="form-control control-lg" placeholder="Enter email..." name="email" defaultValue={email} ref={this.emailInput} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input type="text" className="form-control control-lg" placeholder="Enter phone..." name="phone" defaultValue={phone} ref={this.phoneInput} />
-            </div>
-            <input type="submit" value="Add Contact" className="btn btn-block btn-success mt-3" />
-          </form>
-        </div>
-      </div>
+          )
+        }}
+      </Consumer>
     )
   }
 }
