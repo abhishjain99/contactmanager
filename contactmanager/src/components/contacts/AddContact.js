@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { v1 as uuid } from 'uuid';
 import { Consumer } from "../../context";
+import TextInputGroup from "../layout/TextInputGroup";
 
 class AddContact extends Component {
   state = {
@@ -35,18 +36,21 @@ class AddContact extends Component {
               <div className="card-header">Add Contact</div>
               <div className="card-body">
                 <form onSubmit={this.onSubmit.bind(this, dispatch)}>
-                  <div className="form-group">
+                  <TextInputGroup placeholder="Enter name..." label="name" name="name" value={name} type="text" onChange={this.onChange}  />
+                  {/* <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input type="text" className="form-control control-lg" placeholder="Enter name..." name="name" value={name} onChange={this.onChange} />
-                  </div>
-                  <div className="form-group">
+                  </div> */}
+                  <TextInputGroup placeholder="Enter email..." label="email" name="email" value={email} type="email" onChange={this.onChange}  />
+                  {/* <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input type="email" className="form-control control-lg" placeholder="Enter email..." name="email" value={email} onChange={this.onChange} />
-                  </div>
-                  <div className="form-group">
+                  </div> */}
+                  <TextInputGroup placeholder="Enter phone..." label="phone" name="phone" value={phone} onChange={this.onChange}  />
+                  {/* <div className="form-group">
                     <label htmlFor="phone">Phone</label>
                     <input type="text" className="form-control control-lg" placeholder="Enter phone..." name="phone" value={phone} onChange={this.onChange} />
-                  </div>
+                  </div> */}
                   <input type="submit" value="Add Contact" className="btn btn-block btn-success mt-3" />
                 </form>
               </div>
